@@ -19,7 +19,7 @@ export const App = () => {
         <div className="mt-5"></div>
         <div className="w-100">
           {selectedShow.show ? (
-            <ShowDetail selectedShow={selectedShow} />
+            <ShowDetail selectedShow={selectedShow} setQuery={setQuery} />
           ) : (
             <>
               <Search query={query} setQuery={setQuery} />

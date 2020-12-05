@@ -4,7 +4,7 @@ import { getSeasonEpisodes, getShowDetails } from "../actions/tvMazeActions";
 import { SeasonDropDown } from "./SeasonDropDown";
 import { useDispatch, useSelector } from "react-redux";
 
-export const ShowDetail = ({ selectedShow: item }) => {
+export const ShowDetail = ({ selectedShow: item, setQuery }) => {
   const dispatch = useDispatch();
   const sizing = 1;
 
@@ -81,15 +81,22 @@ export const ShowDetail = ({ selectedShow: item }) => {
             {item.show.name}
           </div>
           <div
-            className="mt-2"
+            className="mt-2 mb-0 text-muted"
             name="summary"
             dangerouslySetInnerHTML={renderHtml()}
+            style={{
+              textAlign: "justify",
+              textJustify: "inter-word",
+              fontSize: 14
+            }}
           />
-          <div className="mt-2" name="creator">
-            <strong>Creator(s)</strong> <span>{getCreators()}</span>
+          <div className="mt-2" name="creator" style={{ fontSize: 14 }}>
+            <strong>Creator(s): </strong>
+            <span className="text-muted">{getCreators()}</span>
           </div>
-          <div className="mt-2" name="starring">
-            <strong>Starring</strong> <span>{getCast()}</span>
+          <div className="mt-2" name="starring" style={{ fontSize: 14 }}>
+            <strong>Starring: </strong>{" "}
+            <span className="text-muted">{getCast()}</span>
           </div>
         </div>
         <div className="d-flex flex-column col-7" name="right-side">
@@ -104,6 +111,7 @@ export const ShowDetail = ({ selectedShow: item }) => {
         <button
           className="btn btn-text text-muted mt-5"
           onClick={() => {
+            setQuery("");
             dispatch({ type: "RESET_SHOW_STATE" });
           }}
         >
