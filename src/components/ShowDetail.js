@@ -13,7 +13,7 @@ export const ShowDetail = ({ selectedShow: item }) => {
   };
 
   const {
-    tvMaze: { cast, crew, episodes, seasons, selectedSeason }
+    tvMaze: { cast, crew, episodes, seasons, selectedSeason, selectedShow }
   } = useSelector((state) => state);
 
   useEffect(() => {
@@ -94,7 +94,10 @@ export const ShowDetail = ({ selectedShow: item }) => {
         </div>
         <div className="d-flex flex-column col-7" name="right-side">
           <SeasonDropDown seasons={seasons} selectedSeason={selectedSeason} />
-          <EpisodeList episodes={episodes} />
+          <EpisodeList
+            episodes={episodes}
+            rating={selectedShow.show.rating.average}
+          />
         </div>
       </div>
       <div className="d-flex justify-content-center w-100">

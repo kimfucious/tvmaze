@@ -3,7 +3,7 @@ import React from "react";
 import { EpisodeMarker } from "./EpisodeMarker";
 import dayjs from "dayjs";
 
-export const EpisodeListItem = ({ episode: item }) => {
+export const EpisodeListItem = ({ episode: item, rating }) => {
   return (
     <div href="#" className="d-flex mb-3 p-2 animate__animated animate__fadeIn">
       <EpisodeMarker episodeNumber={item.number} />
@@ -16,7 +16,7 @@ export const EpisodeListItem = ({ episode: item }) => {
             <span role="img" aria-label="star">
               ⭐
             </span>{" "}
-            <span className="mr-3">starz</span>
+            <span className="mr-3">{rating}</span>
             <span className="mr-3">|</span>
             {dayjs(item.airdate).format("MMMM D, YYYY")}
           </div>
