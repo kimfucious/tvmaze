@@ -1,10 +1,20 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
+import { useDispatch } from "react-redux";
 
 export const ShowListItem = ({ show: item }) => {
+  const dispatch = useDispatch();
   const sizing = 0.75;
   const renderHtml = () => {
     return { __html: item.show.summary };
+  };
+
+  const handleSelectShow = async () => {
+    try {
+      dispatch({ type: "SET_SELECTED_SHOW", payload: item });
+    } catch (error) {
+      console.warn(error);
+    }
   };
 
   return (
@@ -12,6 +22,7 @@ export const ShowListItem = ({ show: item }) => {
       <a
         href="#"
         className="d-flex mb-3 list-group-item list-group-item-action p-4"
+        onClick={() => handleSelectShow()}
       >
         <div>
           <img
