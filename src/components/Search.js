@@ -32,28 +32,25 @@ export const Search = () => {
   };
 
   return (
-    <form
-      className="d-flex justify-content-center w-100"
-      onSubmit={handleSubmit}
-    >
+    <form className="d-flex justify-content-center" onSubmit={handleSubmit}>
       <div className="form-group w-100 mt-3" style={{ maxWidth: 800 }}>
-        <div className="d-flex w-100">
+        <div className="d-flex">
           <input
             autoFocus
-            className="form-control form-control-lg w-100 mr-3"
+            className="form-control form-control-lg mr-3"
             type="text"
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search for a TV show"
             value={query}
           />
           <button
-            className="d-flex align-items-center justify-content-center btn btn-lg btn-primary"
+            className="d-flex align-items-center justify-content-center btn btn-lg btn-primary flex-shrink-0"
             disabled={!query.length}
             style={{ height: 48, width: 96 }}
             type="submit"
           >
             {isSpinning ? (
-              <div className="d-flex align-items-center justify-content-center w-100">
+              <div className="">
                 <PuffLoader size={32} color="#f8f9fa" />
               </div>
             ) : (
