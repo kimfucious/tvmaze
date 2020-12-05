@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavBar } from "./components/NavBar";
 import { Search } from "./components/Search";
 import { ShowDetail } from "./components/ShowDetail";
@@ -10,9 +10,11 @@ export const App = () => {
     tvMaze: { searchOptions, selectedShow }
   } = useSelector((state) => state);
 
+  const [query, setQuery] = useState("");
+
   return (
     <>
-      <NavBar />
+      <NavBar setQuery={setQuery} />
       <div className="container d-flex flex-column align-items-center pb-5 animate__animated animate_fadeIn pb-5">
         <div className="mt-5"></div>
         <div className="w-100">
@@ -20,7 +22,7 @@ export const App = () => {
             <ShowDetail selectedShow={selectedShow} />
           ) : (
             <>
-              <Search />
+              <Search query={query} setQuery={setQuery} />
               {searchOptions.length ? <ShowList shows={searchOptions} /> : null}
             </>
           )}

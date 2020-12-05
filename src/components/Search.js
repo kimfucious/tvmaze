@@ -5,9 +5,8 @@ import PuffLoader from "react-spinners/PuffLoader";
 import qs from "qs";
 import sortBy from "lodash.sortby";
 
-export const Search = () => {
+export const Search = ({ query, setQuery }) => {
   const dispatch = useDispatch();
-  const [query, setQuery] = useState("");
   const [isSpinning, setIsSpinning] = useState(false);
 
   const handleSubmit = async (e) => {
