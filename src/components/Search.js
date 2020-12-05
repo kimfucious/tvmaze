@@ -1,30 +1,32 @@
 import React, { useState } from "react";
-// import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import axios from "axios";
 import qs from "qs";
 import sortBy from "lodash.sortby";
+import { useDispatch } from "react-redux";
+import PuffLoader from "react-spinners/PuffLoader";
 
-export const Search = ({ options, setOptions }) => {
+export const Search = () => {
+  const dispatch = useDispatch();
   const [query, setQuery] = useState("");
+  const [isSpinning, setIsSpinning] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // setIsLoading(true);
+      setIsSpinning(true);
       const { data } = await axios.get(
         `http://api.tvmaze.com/search/shows?${qs.stringify({
           q: query
         })}`
       );
-      console.warn(data);
       const shows = sortBy(
         data.filter((item) => item.show.image && item.show.image.medium),
         "show.name"
       );
-      setOptions(shows);
-      // setIsLoading(false);
+      dispatch({ type: "SET_SEARCH_OPTIONS", payload: shows });
+      setIsSpinning(false);
     } catch (error) {
-      // setIsLoading(false);
+      setIsSpinning(false);
       console.warn(error);
     }
   };
@@ -34,55 +36,31 @@ export const Search = ({ options, setOptions }) => {
       className="d-flex justify-content-center w-100"
       onSubmit={handleSubmit}
     >
-      <div className="form-group w-100 mt-3" style={{ maxWidth: 600 }}>
+      <div className="form-group w-100 mt-3" style={{ maxWidth: 800 }}>
         <div className="d-flex w-100">
           <input
             autoFocus
-            className="form-control w-100"
+            className="form-control form-control-lg w-100 mr-3"
             type="text"
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search for a TV show"
             value={query}
           />
-          <button className="btn btn-primary ml-2" type="submit">
-            Search
+          <button
+            className="d-flex align-items-center justify-content-center btn btn-lg btn-primary"
+            disabled={!query.length}
+            style={{ height: 48, width: 96 }}
+            type="submit"
+          >
+            {isSpinning ? (
+              <div className="d-flex align-items-center justify-content-center w-100">
+                <PuffLoader size={32} color="#f8f9fa" />
+              </div>
+            ) : (
+              <span>Search</span>
+            )}
           </button>
         </div>
-        {/* <AsyncTypeahead
-        clearButton
-        delay={300}
-        filterBy={filterBy}
-        id="tv-search-input"
-        isLoading={isLoading}
-        labelKey={(option) => `${option.show.name}`}
-        onChange={handleChange}
-        onSearch={handleSearch}
-        open={false}
-        options={options}
-        placeholder="Search for a TV show..."
-        renderMenuItemChildren={(option) => {
-          console.warn(option);
-          return (
-            <>
-              <img
-                alt={option.show.name}
-                src={option.show.image.medium}
-                style={{
-                  height: "24px",
-                  marginRight: "10px",
-                  width: "24px"
-                }}
-              />
-              <span className="">{option.show.name}</span>
-              <span className="">{` - (${option.show.premiered.slice(
-                0,
-                4
-              )})`}</span>
-            </>
-          );
-        }}
-        // selected={selectedShow}
-      /> */}
       </div>
     </form>
   );

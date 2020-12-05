@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import { github } from "./githubReducer";
+import { tvMaze } from "./tvMazeReducer";
 
 export const appReducer = combineReducers({
-  github
+  tvMaze
 });
 
 export const rootReducer = (state, action) => {
