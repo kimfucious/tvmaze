@@ -14,7 +14,7 @@ export const Search = ({ query, setQuery }) => {
     try {
       setIsSpinning(true);
       const { data } = await axios.get(
-        `http://api.tvmaze.com/search/shows?${qs.stringify({
+        `https://api.tvmaze.com/search/shows?${qs.stringify({
           q: query
         })}`
       );

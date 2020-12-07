@@ -23,7 +23,7 @@ export const getShowCast = (showId) => async (dispatch) => {
   try {
     dispatch({ type: "GET_SHOW_CAST_START" });
     const { data } = await axios.get(
-      `http://api.tvmaze.com/shows/${showId}/cast`
+      `https://api.tvmaze.com/shows/${showId}/cast`
     );
     dispatch({ type: "GET_SHOW_CAST_SUCCESS", payload: data });
     return Promise.resolve(data);
@@ -38,7 +38,7 @@ export const getShowCrew = (showId) => async (dispatch) => {
   try {
     dispatch({ type: "GET_SHOW_CREW_START" });
     const { data } = await axios.get(
-      `http://api.tvmaze.com/shows/${showId}/crew`
+      `https://api.tvmaze.com/shows/${showId}/crew`
     );
     dispatch({ type: "GET_SHOW_CREW_SUCCESS", payload: data });
     return Promise.resolve(data);
@@ -53,7 +53,7 @@ export const getSeasonEpisodes = (seasonId) => async (dispatch) => {
     if (seasonId) {
       dispatch({ type: "GET_SEASON_EPISODES_START" });
       const { data } = await axios.get(
-        `http://api.tvmaze.com/seasons/${seasonId}/episodes`
+        `https://api.tvmaze.com/seasons/${seasonId}/episodes`
       );
       const episodes = data.filter((item) => item.number);
       dispatch({ type: "GET_SEASON_EPISODES_SUCCESS", payload: episodes });
@@ -70,7 +70,7 @@ export const getShowSeasons = (showId) => async (dispatch) => {
   try {
     dispatch({ type: "GET_SHOW_SEASONS_START" });
     const { data } = await axios.get(
-      `http://api.tvmaze.com/shows/${showId}/seasons`
+      `https://api.tvmaze.com/shows/${showId}/seasons`
     );
     dispatch({ type: "GET_SHOW_SEASONS_SUCCESS", payload: data });
     return Promise.resolve(data);
