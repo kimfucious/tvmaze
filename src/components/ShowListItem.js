@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { useDispatch } from "react-redux";
+import { getSecureUrl } from "../helpers";
 
 export const ShowListItem = ({ show: item }) => {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ export const ShowListItem = ({ show: item }) => {
         <div>
           <img
             alt={item.show.name}
-            src={item.show.image.medium}
+            src={getSecureUrl(item.show.image.medium)}
             style={{ borderRadius: 8 }}
             width={210 * sizing}
             height={295 * sizing}

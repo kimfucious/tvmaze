@@ -3,6 +3,7 @@ import { EpisodeList } from "../components/EpisodeList";
 import { getSeasonEpisodes, getShowDetails } from "../actions/tvMazeActions";
 import { SeasonDropDown } from "./SeasonDropDown";
 import { useDispatch, useSelector } from "react-redux";
+import { getSecureUrl } from "../helpers";
 
 export const ShowDetail = ({ selectedShow: item, setQuery }) => {
   const dispatch = useDispatch();
@@ -67,7 +68,7 @@ export const ShowDetail = ({ selectedShow: item, setQuery }) => {
             <img
               className="animate__animated animate__fadeIn"
               alt={item.show.name}
-              src={item.show.image.medium}
+              src={getSecureUrl(item.show.image.medium)}
               style={{ borderRadius: 8 }}
               width={336 * sizing}
               height={472 * sizing}
