@@ -15,8 +15,8 @@ export const App = () => {
   return (
     <>
       <NavBar setQuery={setQuery} />
-      <div className="container d-flex flex-column align-items-center pb-5 animate__animated animate_fadeIn pb-5">
-        <div className="mt-5"></div>
+      <div className="container d-flex flex-column align-items-center animate__animated animate_fadeIn pb-3 pb-sm-5">
+        <div className="mt-3 mt-sm-5"></div>
         <div className="w-100">
           {selectedShow.show ? (
             <ShowDetail selectedShow={selectedShow} setQuery={setQuery} />

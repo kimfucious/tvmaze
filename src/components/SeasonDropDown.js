@@ -2,9 +2,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import MoonLoader from "react-spinners/MoonLoader";
+import { useWindowSize } from "../hooks/useWindowSize";
 
 export const SeasonDropDown = ({ seasons, selectedSeason }) => {
   const dispatch = useDispatch();
+  const [, width] = useWindowSize();
+  const isSmall = width < 576;
   const [isSpinning, setIsSpinning] = useState(false);
   const handleSelectSeason = async (seasonNumber) => {
     try {
@@ -31,10 +34,12 @@ export const SeasonDropDown = ({ seasons, selectedSeason }) => {
       );
     });
   return (
-    <div className="d-flex align-items-center">
-      <div className="btn-group" style={{ width: 150 }}>
+    <div className="d-flex align-items-center mt-3 mt-sm-0">
+      <div className="btn-group">
         <button
-          className="btn btn-secondary btn-lg dropdown-toggle"
+          className={`btn btn-secondary btn-${
+            isSmall ? "" : "lg"
+          } dropdown-toggle`}
           type="button"
           data-toggle="dropdown"
           aria-haspopup="true"

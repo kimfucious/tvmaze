@@ -4,10 +4,14 @@ import { getSeasonEpisodes, getShowDetails } from "../actions/tvMazeActions";
 import { SeasonDropDown } from "./SeasonDropDown";
 import { useDispatch, useSelector } from "react-redux";
 import { getSecureUrl } from "../helpers";
+import { useWindowSize } from "../hooks/useWindowSize";
 
-export const ShowDetail = ({ selectedShow: item, setQuery }) => {
+export const ShowDetail = ({ selectedShow: item }) => {
   const dispatch = useDispatch();
-  const sizing = 1;
+  const [, width] = useWindowSize();
+  const isSmall = width < 576;
+  const isMedium = width >= 576 && width < 992;
+  const sizing = isMedium ? 0.6 : isSmall ? 0.33 : 1;
 
   const renderHtml = () => {
     return { __html: item.show.summary };
@@ -58,22 +62,20 @@ export const ShowDetail = ({ selectedShow: item, setQuery }) => {
 
   return (
     <div className="animate__animated animate__fadeIn">
-      <div className="container row mt-4">
+      <div className="row mt-0 mt-sm-4">
         <div
-          className="d-flex flex-column col-5 mr-3"
+          className="d-flex flex-column col-sm-5"
           name="left-side"
           style={{ maxWidth: 350 }}
         >
-          <div name="image">
-            <img
-              className="animate__animated animate__fadeIn"
-              alt={item.show.name}
-              src={getSecureUrl(item.show.image.medium)}
-              style={{ borderRadius: 8 }}
-              width={336 * sizing}
-              height={472 * sizing}
-            />
-          </div>
+          <img
+            className="animate__animated animate__fadeIn"
+            alt={item.show.name}
+            src={getSecureUrl(item.show.image.medium)}
+            style={{ borderRadius: 8 }}
+            width={336 * sizing}
+            height={472 * sizing}
+          />
           <div
             className="font-weight-bold mt-3"
             name="title"
@@ -91,16 +93,20 @@ export const ShowDetail = ({ selectedShow: item, setQuery }) => {
               fontSize: 14
             }}
           />
-          <div className="mt-2" name="creator" style={{ fontSize: 14 }}>
-            <strong>Creator(s): </strong>
-            <span className="text-muted">{getCreators()}</span>
-          </div>
-          <div className="mt-2" name="starring" style={{ fontSize: 14 }}>
-            <strong>Starring: </strong>{" "}
-            <span className="text-muted">{getCast()}</span>
-          </div>
+          {getCreators().length ? (
+            <div className="mt-2" name="creator" style={{ fontSize: 14 }}>
+              <strong>Creator(s): </strong>
+              <span className="text-muted">{getCreators()}</span>
+            </div>
+          ) : null}
+          {getCast() ? (
+            <div className="mt-2" name="starring" style={{ fontSize: 14 }}>
+              <strong>Starring: </strong>{" "}
+              <span className="text-muted">{getCast()}</span>
+            </div>
+          ) : null}
         </div>
-        <div className="d-flex flex-column col-7" name="right-side">
+        <div className="d-flex flex-column col-sm-7" name="right-side">
           <SeasonDropDown seasons={seasons} selectedSeason={selectedSeason} />
           <EpisodeList
             episodes={episodes}
@@ -110,10 +116,9 @@ export const ShowDetail = ({ selectedShow: item, setQuery }) => {
       </div>
       <div className="d-flex justify-content-center w-100">
         <button
-          className="btn btn-text text-muted mt-5"
+          className="btn btn-text text-muted mt-3 mt-sm-5"
           onClick={() => {
-            setQuery("");
-            dispatch({ type: "RESET_SHOW_STATE" });
+            dispatch({ type: "RESET_SHOW_STATE_SAVE_OPTIONS" });
           }}
         >
           back
