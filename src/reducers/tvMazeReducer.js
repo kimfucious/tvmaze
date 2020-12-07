@@ -19,6 +19,8 @@ export const tvMaze = (state = { ...initialState }, action) => {
       return { ...state, seasons: action.payload };
     case "RESET_SHOW_STATE":
       return { ...initialState };
+    case "RESET_SHOW_STATE_SAVE_OPTIONS":
+      return { ...initialState, searchOptions: [...state.searchOptions] };
     case "SET_SEARCH_OPTIONS":
       return { ...state, searchOptions: action.payload };
     case "SET_SELECTED_SEASON":
